@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="mn" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1b3486">
+<title>Ерөнхий боловсролын сургууль · Нүүр хуудас</title>
+<meta name="description" content="Мэдлэг, ёс зүй, технологийг хослуулсан ерөнхий боловсролын сургууль. Элсэлт, мэдээ, хөтөлбөр, мэдээлэл технологийн гүнзгийрүүлсэн сургалт.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Montserrat', 'Inter', 'sans-serif']
+      },
+      colors: {
+        navy: { 50:'#eef2fb',100:'#d9e2f6',200:'#b3c4ec',300:'#869fdc',400:'#4f6fc4',500:'#2f4fae',600:'#243f96',700:'#1b3486',800:'#142764',900:'#0e1c4a' },
+        brand: { 50:'#fdf0f1',100:'#fadde0',400:'#e85c68',500:'#e03a48',600:'#c8202f',700:'#a8182a' },
+        warm: { 50:'#f8f7f5',100:'#f0eeeb',200:'#dfdcd6',300:'#c7c3bb',400:'#9d988f',500:'#77736c',600:'#5d5a54',700:'#46433e',800:'#34322e',900:'#25231f' }
+      },
+      boxShadow: {
+        soft: '0 10px 30px -12px rgba(27,52,134,.25)',
+        card: '0 2px 6px rgba(37,35,31,.05), 0 12px 28px -14px rgba(27,52,134,.22)'
+      }
+    }
+  }
+}
+</script>
+<style>
+  body { background:#f8f7f5; color:#34322e; }
+  .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.show { opacity:1; transform:none; }
+  .slide { opacity:0; visibility:hidden; transition:opacity .9s ease, visibility .9s; }
+  .slide.active { opacity:1; visibility:visible; }
+  .slide.active .s-anim > * { animation: up .8s ease both; }
+  .slide.active .s-anim > *:nth-child(2){ animation-delay:.12s }
+  .slide.active .s-anim > *:nth-child(3){ animation-delay:.24s }
+  .slide.active .s-anim > *:nth-child(4){ animation-delay:.36s }
+  @keyframes up { from{opacity:0; transform:translateY(24px)} to{opacity:1; transform:none} }
+  .grid-dots { background-image: radial-gradient(rgba(255,255,255,.18) 1.5px, transparent 1.5px); background-size: 26px 26px; }
+  .nav-link { position:relative; }
+  .nav-link::after { content:''; position:absolute; left:0; bottom:-6px; height:2px; width:0; background:#c8202f; transition:width .25s; }
+  .nav-link:hover::after, .nav-link.active::after { width:100%; }
+  .float { animation: float 6s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  details > summary { list-style:none; cursor:pointer; }
+  details > summary::-webkit-details-marker { display:none; }
+  details[open] .chev { transform:rotate(180deg); }
+  @media (prefers-reduced-motion: reduce) { .reveal,.slide,.float,.slide.active .s-anim > * { animation:none !important; transition:none !important; } .reveal{opacity:1; transform:none} }
+</style>
+</head>
+<body class="font-sans antialiased">
+
+<!-- Top info bar -->
+<div class="bg-navy-900 text-navy-100 text-[13px]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-10 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-5 overflow-hidden whitespace-nowrap">
+      <a href="tel:+97611000000" class="flex items-center gap-1.5 hover:text-white">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h2.3a1 1 0 011 .76l.9 3.6a1 1 0 01-.3 1L7.6 9.6a12 12 0 006.8 6.8l1.2-1.3a1 1 0 011-.3l3.6.9a1 1 0 01.8 1V19a2 2 0 01-2 2A16 16 0 013 5z"/></svg>
+        11-000000
+      </a>
+      <a href="mailto:info@school.edu.mn" class="hidden sm:flex items-center gap-1.5 hover:text-white">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        info@school.edu.mn
+      </a>
+      <span class="hidden md:inline text-navy-300">Даваа–Баасан 08:00 – 18:00</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="#" class="hover:text-white">Facebook</a>
+      <span class="text-navy-700">|</span>
+      <a href="#" class="hover:text-white">YouTube</a>
+      <span class="text-navy-700 hidden sm:inline">|</span>
+      <a href="#" class="hidden sm:inline hover:text-white">English</a>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header id="header" class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-warm-200 transition-shadow">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-[72px] flex items-center justify-between">
+    <a href="#home" class="flex items-center gap-3">
+      <span class="relative grid place-items-center w-11 h-11 rounded-xl bg-navy-700 text-white shadow-soft">
+        <svg viewBox="0 0 32 32" class="w-7 h-7" fill="none"><path d="M16 4l12 6-12 6L4 10 16 4z" fill="#fff"/><path d="M9 14v6c0 2 3.5 4 7 4s7-2 7-4v-6l-7 3.5L9 14z" fill="#fff" opacity=".85"/><circle cx="26" cy="22" r="3" fill="#e03a48"/></svg>
+      </span>
+      <span class="leading-tight">
+        <span class="block font-display font-extrabold text-navy-800 text-[17px] tracking-tight">Ерөнхий боловсролын</span>
+        <span class="block text-[12px] font-semibold text-brand-600 tracking-wide uppercase">сургууль</span>
+      </span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-7 text-[14.5px] font-semibold text-warm-700">
+      <a class="nav-link" href="#home">Нүүр</a>
+      <a class="nav-link" href="#about">Танилцуулга</a>
+      <a class="nav-link" href="#mission">Бодлого зорилго</a>
+      <a class="nav-link" href="#it">IT сургалт</a>
+      <a class="nav-link" href="#news">Мэдээ</a>
+      <a class="nav-link" href="#admission">Элсэлт</a>
+      <a class="nav-link" href="#contact">Холбоо барих</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href="#admission" class="hidden sm:inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold px-5 py-2.5 rounded-full shadow-soft transition">
+        Элсэлтэд бүртгүүлэх
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <button id="menuBtn" aria-label="Цэс" class="lg:hidden w-11 h-11 grid place-items-center rounded-xl border border-warm-200 text-navy-800">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden lg:hidden border-t border-warm-200 bg-white">
+    <div class="px-4 py-3 grid gap-1 font-semibold text-warm-700">
+      <a class="px-3 py-3 rounded-lg hover:bg-navy-50" href="#home">Нүүр</a>
+      <a class="px-3 py-3 rounded-lg hover:bg-navy-50" href="#about">Танилцуулга</a>
+      <a class="px-3 py-3 rounded-lg hover:bg-navy-50" href="#mission">Бодлого зорилго</a>
+      <a class="px-3 py-3 rounded-lg hover:bg-navy-50" href="#it">IT сургалт</a>
+      <a class="px-3 py-3 rounded-lg hover:bg-navy-50" href="#news">Мэдээ</a>
+      <a class="px-3 py-3 rounded-lg hover:bg-navy-50" href="#admission">Элсэлт</a>
+      <a class="px-3 py-3 rounded-lg hover:bg-navy-50" href="#contact">Холбоо барих</a>
+      <a href="#admission" class="mt-2 text-center bg-brand-600 text-white px-4 py-3 rounded-xl">Элсэлтэд бүртгүүлэх</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO SLIDER -->
+<section id="home" class="relative overflow-hidden bg-navy-800">
+  <div id="slider" class="relative h-[560px] sm:h-[600px] lg:h-[640px]">
+
+    <!-- Slide 1 -->
+    <div class="slide active absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-700 to-navy-600">
+      <div class="absolute inset-0 grid-dots opacity-60"></div>
+      <div class="absolute -right-24 -top-24 w-[420px] h-[420px] rounded-full bg-brand-600/25 blur-3xl"></div>
+      <div class="relative max-w-7xl mx-auto h-full px-4 sm:px-6 grid lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 s-anim text-white">
+          <span class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide">
+            <span class="w-2 h-2 rounded-full bg-brand-400"></span> 2026–2027 хичээлийн жил
+          </span>
+          <h1 class="mt-5 font-display font-extrabold text-4xl sm:text-5xl lg:text-[56px] leading-[1.1]">
+            Мэдлэг, ёс зүй, <span class="text-brand-400">технологийг</span> хослуулсан сургууль
+          </h1>
+          <p class="mt-5 text-navy-100 text-lg max-w-xl leading-relaxed">
+            Хүүхэд бүрийн авьяас чадварыг нээж, дэлхийд өрсөлдөх чадвартай, эх оронч иргэнийг хамтдаа төлөвшүүлнэ.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#admission" class="bg-brand-600 hover:bg-brand-700 px-7 py-3.5 rounded-full font-bold shadow-soft transition">Элсэлтийн мэдээлэл</a>
+            <a href="#about" class="bg-white/10 hover:bg-white/20 border border-white/30 px-7 py-3.5 rounded-full font-semibold transition">Сургуулийн тухай</a>
+          </div>
+        </div>
+        <div class="hidden lg:flex lg:col-span-5 justify-center">
+          <div class="relative float">
+            <div class="w-[380px] h-[380px] rounded-[2.5rem] bg-white/10 border border-white/20 backdrop-blur grid place-items-center rotate-3">
+              <svg viewBox="0 0 200 200" class="w-64 h-64" fill="none">
+                <rect x="30" y="50" width="140" height="100" rx="10" fill="#fff" opacity=".95"/>
+                <rect x="42" y="62" width="116" height="62" rx="4" fill="#1b3486"/>
+                <path d="M55 105l22-22 18 14 28-28 20 16" stroke="#e85c68" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="80" y="150" width="40" height="8" rx="3" fill="#fff"/>
+                <rect x="65" y="158" width="70" height="6" rx="3" fill="#fff" opacity=".7"/>
+                <circle cx="158" cy="48" r="16" fill="#c8202f"/>
+                <path d="M151 48l5 5 9-10" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="absolute -left-8 bottom-10 bg-white rounded-2xl shadow-card px-4 py-3 -rotate-3">
+              <div class="text-xs text-warm-500">Сурагчийн тоо</div>
+              <div class="font-display font-extrabold text-2xl text-navy-700">1,850+</div>
+            </div>
+            <div class="absolute -right-4 top-8 bg-white rounded-2xl shadow-card px-4 py-3 rotate-3">
+              <div class="text-xs text-warm-500">Өндөр дүнтэй төгсөгч</div>
+              <div class="font-display font-extrabold text-2xl text-brand-600">96%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide absolute inset-0 bg-gradient-to-br from-navy-800 via-navy-900 to-[#2a1020]">
+      <div class="absolute inset-0 grid-dots opacity-50"></div>
+      <div class="absolute left-1/3 -bottom-32 w-[480px] h-[480px] rounded-full bg-navy-400/20 blur-3xl"></div>
+      <div class="relative max-w-7xl mx-auto h-full px-4 sm:px-6 grid lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 s-anim text-white">
+          <span class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide">Мэдээлэл технологийн хөтөлбөр</span>
+          <h2 class="mt-5 font-display font-extrabold text-4xl sm:text-5xl lg:text-[52px] leading-[1.1]">
+            Програмчлал, робот, <span class="text-brand-400">өгөгдлийн шинжлэх ухаан</span>
+          </h2>
+          <p class="mt-5 text-navy-100 text-lg max-w-xl leading-relaxed">
+            1-р ангиас эхлэн алгоритмын сэтгэлгээ, 5-р ангиас Python, Web, Робот техникийн гүнзгийрүүлсэн сургалт.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#it" class="bg-brand-600 hover:bg-brand-700 px-7 py-3.5 rounded-full font-bold shadow-soft transition">IT сургалтын онцлог</a>
+          </div>
+        </div>
+        <div class="hidden lg:flex lg:col-span-5 justify-center">
+          <div class="float w-[380px] rounded-3xl bg-[#0b1537]/80 border border-white/15 shadow-2xl overflow-hidden">
+            <div class="flex items-center gap-2 px-4 py-3 bg-white/5 border-b border-white/10">
+              <span class="w-3 h-3 rounded-full bg-brand-500"></span><span class="w-3 h-3 rounded-full bg-warm-300"></span><span class="w-3 h-3 rounded-full bg-navy-300"></span>
+              <span class="ml-3 text-xs text-navy-200">sургалт.py</span>
+            </div>
+            <pre class="p-5 text-[13px] leading-6 text-navy-100 font-mono overflow-hidden"><span class="text-brand-400">def</span> <span class="text-white">ирээдүй</span>(сурагч):
+    <span class="text-brand-400">for</span> өдөр <span class="text-brand-400">in</span> range(<span class="text-white">365</span>):
+        сурагч.суралцах()
+        сурагч.бүтээх()
+    <span class="text-brand-400">return</span> <span class="text-white">"Амжилт"</span>
+
+<span class="text-navy-300"># Мэдлэг + Технологи</span></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide absolute inset-0 bg-gradient-to-br from-brand-700 via-brand-600 to-navy-800">
+      <div class="absolute inset-0 grid-dots opacity-50"></div>
+      <div class="relative max-w-7xl mx-auto h-full px-4 sm:px-6 grid lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 s-anim text-white">
+          <span class="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide">Шинэ элсэлт</span>
+          <h2 class="mt-5 font-display font-extrabold text-4xl sm:text-5xl lg:text-[52px] leading-[1.1]">
+            1-р ангийн элсэлт <br>болон шилжин ирэлт <span class="text-white/90 underline decoration-white/40 underline-offset-8">нээлттэй</span>
+          </h2>
+          <p class="mt-5 text-white/90 text-lg max-w-xl leading-relaxed">
+            Онлайнаар бүртгүүлж, баримт бичгээ бүрдүүлээд сургуульд ирж баталгаажуулна уу.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#admission" class="bg-white text-brand-700 hover:bg-warm-100 px-7 py-3.5 rounded-full font-bold shadow-soft transition">Бүртгүүлэх</a>
+            <a href="#contact" class="bg-white/10 hover:bg-white/20 border border-white/40 px-7 py-3.5 rounded-full font-semibold transition">Лавлах</a>
+          </div>
+        </div>
+        <div class="hidden lg:grid lg:col-span-5 grid-cols-2 gap-4 float">
+          <div class="bg-white/15 border border-white/25 rounded-2xl p-6 text-white"><div class="font-display text-4xl font-extrabold">5</div><div class="text-sm text-white/85 mt-1">үе шаттай бүртгэл</div></div>
+          <div class="bg-white rounded-2xl p-6 text-navy-800 translate-y-6"><div class="font-display text-4xl font-extrabold text-brand-600">30</div><div class="text-sm text-warm-600 mt-1">сурагч / анги</div></div>
+          <div class="bg-white rounded-2xl p-6 text-navy-800"><div class="font-display text-4xl font-extrabold text-navy-700">2</div><div class="text-sm text-warm-600 mt-1">ээлжийн сургалт</div></div>
+          <div class="bg-white/15 border border-white/25 rounded-2xl p-6 text-white translate-y-6"><div class="font-display text-4xl font-extrabold">100%</div><div class="text-sm text-white/85 mt-1">үнэгүй бүртгэл</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide absolute inset-0 bg-gradient-to-br from-navy-700 via-navy-800 to-warm-900">
+      <div class="absolute inset-0 grid-dots opacity-50"></div>
+      <div class="relative max-w-7xl mx-auto h-full px-4 sm:px-6 grid lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 s-anim text-white">
+          <span class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide">Бидний амжилт</span>
+          <h2 class="mt-5 font-display font-extrabold text-4xl sm:text-5xl lg:text-[52px] leading-[1.1]">
+            Олимпиад, уралдаан тэмцээнд <span class="text-brand-400">шилдэг амжилт</span>
+          </h2>
+          <p class="mt-5 text-navy-100 text-lg max-w-xl leading-relaxed">
+            Математик, физик, программчлал, хэл бичгийн олимпиадад жил бүр олон шавь маань медаль хүртэж байна.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#achievements" class="bg-brand-600 hover:bg-brand-700 px-7 py-3.5 rounded-full font-bold shadow-soft transition">Амжилтуудыг үзэх</a>
+          </div>
+        </div>
+        <div class="hidden lg:flex lg:col-span-5 justify-center">
+          <div class="float relative">
+            <svg viewBox="0 0 240 240" class="w-[340px] h-[340px]" fill="none">
+              <circle cx="120" cy="120" r="110" fill="#fff" opacity=".07"/>
+              <circle cx="120" cy="120" r="80" fill="#fff" opacity=".08"/>
+              <path d="M80 60h80v40a40 40 0 01-80 0V60z" fill="#e85c68"/>
+              <path d="M80 70H58c0 22 8 34 26 38M160 70h22c0 22-8 34-26 38" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".85"/>
+              <rect x="112" y="140" width="16" height="30" fill="#fff" opacity=".9"/>
+              <rect x="88" y="170" width="64" height="12" rx="4" fill="#fff"/>
+              <path d="M120 78l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2 6-12z" fill="#fff"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <button id="prev" aria-label="Өмнөх" class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 text-white grid place-items-center backdrop-blur border border-white/25 transition">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <button id="next" aria-label="Дараах" class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 text-white grid place-items-center backdrop-blur border border-white/25 transition">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+    <div id="dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2"></div>
+    <div class="absolute bottom-0 left-0 h-1 bg-brand-500 z-10" id="progress" style="width:0"></div>
+  </div>
+
+  <!-- Quick links -->
+  <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="-mt-0 translate-y-1/2 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <a href="#admission" class="group bg-white rounded-2xl shadow-card p-4 sm:p-5 flex items-center gap-3 hover:-translate-y-1 transition">
+        <span class="w-11 h-11 rounded-xl bg-brand-50 text-brand-600 grid place-items-center shrink-0"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5zM5 12v5c0 1.5 3 3 7 3s7-1.5 7-3v-5"/></svg></span>
+        <span><span class="block font-bold text-navy-800 text-sm sm:text-base">Элсэлт</span><span class="block text-xs text-warm-500">Бүртгэл нээлттэй</span></span>
+      </a>
+      <a href="#news" class="group bg-white rounded-2xl shadow-card p-4 sm:p-5 flex items-center gap-3 hover:-translate-y-1 transition">
+        <span class="w-11 h-11 rounded-xl bg-navy-50 text-navy-700 grid place-items-center shrink-0"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 5h13a2 2 0 012 2v12a1 1 0 01-1 1H6a2 2 0 01-2-2V5zM8 9h7M8 13h7M8 17h4"/></svg></span>
+        <span><span class="block font-bold text-navy-800 text-sm sm:text-base">Мэдээ</span><span class="block text-xs text-warm-500">Сүүлийн мэдээлэл</span></span>
+      </a>
+      <a href="#schedule" class="group bg-white rounded-2xl shadow-card p-4 sm:p-5 flex items-center gap-3 hover:-translate-y-1 transition">
+        <span class="w-11 h-11 rounded-xl bg-brand-50 text-brand-600 grid place-items-center shrink-0"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></span>
+        <span><span class="block font-bold text-navy-800 text-sm sm:text-base">Хуанли</span><span class="block text-xs text-warm-500">Үйл ажиллагаа</span></span>
+      </a>
+      <a href="#contact" class="group bg-white rounded-2xl shadow-card p-4 sm:p-5 flex items-center gap-3 hover:-translate-y-1 transition">
+        <span class="w-11 h-11 rounded-xl bg-navy-50 text-navy-700 grid place-items-center shrink-0"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+        <span><span class="block font-bold text-navy-800 text-sm sm:text-base">Холбоо барих</span><span class="block text-xs text-warm-500">Хаяг, утас</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="pt-28 sm:pt-32 pb-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center">
+    <div class="reveal relative">
+      <div class="absolute -left-4 -top-4 w-full h-full rounded-[2rem] bg-brand-100"></div>
+      <div class="relative rounded-[2rem] overflow-hidden bg-gradient-to-br from-navy-700 to-navy-900 aspect-[4/3] grid place-items-center shadow-soft">
+        <div class="absolute inset-0 grid-dots opacity-40"></div>
+        <svg viewBox="0 0 400 300" class="relative w-4/5" fill="none">
+          <rect x="60" y="120" width="280" height="150" rx="6" fill="#fff"/>
+          <path d="M40 125L200 40l160 85H40z" fill="#c8202f"/>
+          <rect x="175" y="190" width="50" height="80" rx="4" fill="#1b3486"/>
+          <rect x="85" y="150" width="50" height="50" rx="4" fill="#d9e2f6"/>
+          <rect x="265" y="150" width="50" height="50" rx="4" fill="#d9e2f6"/>
+          <rect x="85" y="215" width="50" height="40" rx="4" fill="#d9e2f6"/>
+          <rect x="265" y="215" width="50" height="40" rx="4" fill="#d9e2f6"/>
+          <rect x="195" y="10" width="3" height="40" fill="#fff"/>
+          <path d="M198 12h36l-8 10 8 10h-36z" fill="#e85c68"/>
+        </svg>
+      </div>
+      <div class="absolute -bottom-6 -right-2 sm:right-6 bg-white rounded-2xl shadow-card px-6 py-4 flex items-center gap-4">
+        <div class="font-display font-extrabold text-4xl text-brand-600">35</div>
+        <div class="text-sm text-warm-600 leading-tight">жилийн<br>түүхтэй</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <span class="text-brand-600 font-bold text-sm tracking-widest uppercase">Сургуулийн тухай</span>
+      <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-navy-800 leading-tight">Танилцуулга</h2>
+      <p class="mt-5 text-warm-600 leading-relaxed text-[17px]">
+        Манай сургууль нь суурь болон бүрэн дунд боловсролыг олгодог ерөнхий боловсролын сургууль бөгөөд сурагч бүрийг хүндэлж, өөрийн хурд, авьяас чадварт нь тохирсон орчинд суралцуулахыг эрхэмлэдэг.
+      </p>
+      <p class="mt-4 text-warm-600 leading-relaxed text-[17px]">
+        Туршлагатай багш нар, орчин үеийн анги танхим, компьютерийн лаборатори, номын сан, спорт заал бүхий найрсаг орчинд хүүхэд бүр аюулгүй, дулаан уур амьсгалд суралцан хөгждөг.
+      </p>
+      <ul class="mt-6 grid sm:grid-cols-2 gap-3 text-[15px] font-medium text-warm-700">
+        <li class="flex gap-2"><svg class="w-5 h-5 text-brand-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.7-9.3a1 1 0 00-1.4-1.4L9 10.6 7.7 9.3a1 1 0 10-1.4 1.4l2 2a1 1 0 001.4 0l4-4z"/></svg>Бага, суурь, бүрэн дунд шатлал</li>
+        <li class="flex gap-2"><svg class="w-5 h-5 text-brand-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.7-9.3a1 1 0 00-1.4-1.4L9 10.6 7.7 9.3a1 1 0 10-1.4 1.4l2 2a1 1 0 001.4 0l4-4z"/></svg>Дөнгөж 30 хүртэлх сурагчтай анги</li>
+        <li class="flex gap-2"><svg class="w-5 h-5 text-brand-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.7-9.3a1 1 0 00-1.4-1.4L9 10.6 7.7 9.3a1 1 0 10-1.4 1.4l2 2a1 1 0 001.4 0l4-4z"/></svg>Гадаад хэл, IT-ийн гүнзгийрүүлсэн сургалт</li>
+        <li class="flex gap-2"><svg class="w-5 h-5 text-brand-600 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.7-9.3a1 1 0 00-1.4-1.4L9 10.6 7.7 9.3a1 1 0 10-1.4 1.4l2 2a1 1 0 001.4 0l4-4z"/></svg>Хичээлийн дараах дугуйлан, клуб</li>
+      </ul>
+      <a href="#mission" class="mt-8 inline-flex items-center gap-2 text-navy-700 font-bold hover:text-brand-600 transition">Бодлого зорилгыг унших
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="bg-navy-800 relative overflow-hidden">
+  <div class="absolute inset-0 grid-dots opacity-30"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 py-14 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center text-white">
+    <div class="reveal"><div class="font-display font-extrabold text-4xl sm:text-5xl"><span data-count="1850">0</span>+</div><div class="mt-2 text-navy-200 text-sm">Сурагч</div></div>
+    <div class="reveal"><div class="font-display font-extrabold text-4xl sm:text-5xl"><span data-count="96">0</span>+</div><div class="mt-2 text-navy-200 text-sm">Багш, ажилтан</div></div>
+    <div class="reveal"><div class="font-display font-extrabold text-4xl sm:text-5xl"><span data-count="64">0</span></div><div class="mt-2 text-navy-200 text-sm">Нийт анги</div></div>
+    <div class="reveal"><div class="font-display font-extrabold text-4xl sm:text-5xl text-brand-400"><span data-count="320">0</span>+</div><div class="mt-2 text-navy-200 text-sm">Жилдээ авдаг медаль, өргөмжлөл</div></div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section id="mission" class="py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="text-brand-600 font-bold text-sm tracking-widest uppercase">Бодлого, зорилго</span>
+      <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-navy-800">Бидний чиглэл</h2>
+      <p class="mt-4 text-warm-600">Сургуулийн хөгжлийг тодорхойлогч гурван тулгуур.</p>
+    </div>
+    <div class="mt-12 grid md:grid-cols-3 gap-6">
+      <div class="reveal bg-white rounded-3xl p-8 shadow-card border-t-4 border-navy-700">
+        <div class="w-14 h-14 rounded-2xl bg-navy-50 text-navy-700 grid place-items-center"><svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg></div>
+        <h3 class="mt-5 font-display font-bold text-xl text-navy-800">Эрхэм зорилго</h3>
+        <p class="mt-3 text-warm-600 leading-relaxed">Сурагч бүрийн хөгжлийг дэмжиж, мэдлэг, чадвар, хүмүүнлэг үнэт зүйлийг эзэмшсэн, өөрийгөө болон нийгмээ хөгжүүлэгч иргэнийг бэлтгэх.</p>
+      </div>
+      <div class="reveal bg-white rounded-3xl p-8 shadow-card border-t-4 border-brand-600">
+        <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 grid place-items-center"><svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3 class="mt-5 font-display font-bold text-xl text-navy-800">Алсын хараа</h3>
+        <p class="mt-3 text-warm-600 leading-relaxed">Дэлхийн жишигт нийцсэн, технологид суурилсан, олон нийтийн итгэл хүлээсэн нээлттэй сургууль болох.</p>
+      </div>
+      <div class="reveal bg-white rounded-3xl p-8 shadow-card border-t-4 border-warm-400">
+        <div class="w-14 h-14 rounded-2xl bg-warm-100 text-warm-700 grid place-items-center"><svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9-9.5C1.7 8 4 5 7 5c2 0 3.5 1 5 3 1.5-2 3-3 5-3 3 0 5.300 3 4 6.500-2 5-9 9.500-9 9.500z"/></svg></div>
+        <h3 class="mt-5 font-display font-bold text-xl text-navy-800">Үнэт зүйл</h3>
+        <p class="mt-3 text-warm-600 leading-relaxed">Хүндлэл, шудрага ёс, хариуцлага, хамтын ажиллагаа, эх оронч үзэл, мэдлэгийг эрхэмлэх сэтгэлгээ.</p>
+      </div>
+    </div>
+
+    <div class="mt-10 reveal bg-gradient-to-r from-navy-700 to-navy-800 rounded-3xl p-8 sm:p-10 text-white grid md:grid-cols-4 gap-6">
+      <div class="md:col-span-4 font-display font-bold text-xl">Стратегийн зорилтууд</div>
+      <div><div class="font-display text-3xl font-extrabold text-brand-400">01</div><p class="mt-2 text-navy-100 text-sm leading-relaxed">Сургалтын чанар, суралцахуйн үр дүнг тасралтгүй сайжруулах</p></div>
+      <div><div class="font-display text-3xl font-extrabold text-brand-400">02</div><p class="mt-2 text-navy-100 text-sm leading-relaxed">Багш нарын мэргэжил, ур чадварыг хөгжүүлэх</p></div>
+      <div><div class="font-display text-3xl font-extrabold text-brand-400">03</div><p class="mt-2 text-navy-100 text-sm leading-relaxed">Дижитал орчин, мэдээлэл технологийг сургалтад өргөн нэвтрүүлэх</p></div>
+      <div><div class="font-display text-3xl font-extrabold text-brand-400">04</div><p class="mt-2 text-navy-100 text-sm leading-relaxed">Эцэг эх, олон нийттэй хамтын ажиллагааг бэхжүүлэх</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- IT -->
+<section id="it" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="grid lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-5 reveal lg:sticky lg:top-28">
+        <span class="text-brand-600 font-bold text-sm tracking-widest uppercase">Мэдээлэл технологийн сургалт</span>
+        <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-navy-800 leading-tight">Ирээдүйн ур чадварыг өнөөдөр эзэмшинэ</h2>
+        <p class="mt-5 text-warm-600 leading-relaxed text-[17px]">
+          Сурагчдад зөвхөн компьютер ашиглаж сургахгүй, харин технологи бүтээх, асуудал шийдэх сэтгэлгээг хөгжүүлнэ.
+        </p>
+        <div class="mt-6 rounded-2xl bg-navy-50 border border-navy-100 p-5">
+          <div class="text-sm font-bold text-navy-700">Сургалтын шатлал</div>
+          <ol class="mt-3 space-y-3 text-sm text-warm-700">
+            <li class="flex gap-3"><span class="w-7 h-7 rounded-full bg-navy-700 text-white grid place-items-center text-xs font-bold shrink-0">1</span><span><b>1–4-р анги:</b> Алгоритмын сэтгэлгээ, дижитал суурь, Scratch</span></li>
+            <li class="flex gap-3"><span class="w-7 h-7 rounded-full bg-navy-700 text-white grid place-items-center text-xs font-bold shrink-0">2</span><span><b>5–9-р анги:</b> Python, Web, Робот техник, Дизайн</span></li>
+            <li class="flex gap-3"><span class="w-7 h-7 rounded-full bg-brand-600 text-white grid place-items-center text-xs font-bold shrink-0">3</span><span><b>10–12-р анги:</b> Өгөгдөл, Мобайл апп, Дипломын төсөл</span></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 grid sm:grid-cols-2 gap-5">
+        <div class="reveal group rounded-3xl border border-warm-200 p-6 hover:shadow-card hover:-translate-y-1 transition bg-warm-50">
+          <div class="w-12 h-12 rounded-xl bg-navy-700 text-white grid place-items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M14 5l-4 14"/></svg></div>
+          <h3 class="mt-4 font-display font-bold text-lg text-navy-800">Програмчлал</h3>
+          <p class="mt-2 text-sm text-warm-600 leading-relaxed">Scratch-аас Python, JavaScript хүртэл алхам алхмаар. Бодит жижиг төслүүд бүтээнэ.</p>
+        </div>
+        <div class="reveal group rounded-3xl border border-warm-200 p-6 hover:shadow-card hover:-translate-y-1 transition bg-warm-50">
+          <div class="w-12 h-12 rounded-xl bg-brand-600 text-white grid place-items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 8V4M9 13h.01M15 13h.01M9 16h6"/></svg></div>
+          <h3 class="mt-4 font-display font-bold text-lg text-navy-800">Робот техник</h3>
+          <p class="mt-2 text-sm text-warm-600 leading-relaxed">Arduino, мэдрэгчтэй хэлхээ, автомат төхөөрөмж зохион бүтээх лаборатори.</p>
+        </div>
+        <div class="reveal group rounded-3xl border border-warm-200 p-6 hover:shadow-card hover:-translate-y-1 transition bg-warm-50">
+          <div class="w-12 h-12 rounded-xl bg-brand-600 text-white grid place-items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8M12 18v3"/></svg></div>
+          <h3 class="mt-4 font-display font-bold text-lg text-navy-800">Вэб, дизайн</h3>
+          <p class="mt-2 text-sm text-warm-600 leading-relaxed">HTML, CSS, график дизайн, UI/UX-ийн үндэс. Өөрийн вэб сайтаа бүтээж нийтэлнэ.</p>
+        </div>
+        <div class="reveal group rounded-3xl border border-warm-200 p-6 hover:shadow-card hover:-translate-y-1 transition bg-warm-50">
+          <div class="w-12 h-12 rounded-xl bg-navy-700 text-white grid place-items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg></div>
+          <h3 class="mt-4 font-display font-bold text-lg text-navy-800">Өгөгдөл ба AI</h3>
+          <p class="mt-2 text-sm text-warm-600 leading-relaxed">Өгөгдөл цэгцлэх, дүн шинжилгээ хийх, хиймэл оюун ухааныг ухамсартай хэрэглэх.</p>
+        </div>
+        <div class="reveal sm:col-span-2 rounded-3xl bg-gradient-to-r from-brand-600 to-brand-700 text-white p-7 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+          <div>
+            <div class="font-display font-bold text-xl">Кибер аюулгүй байдал ба дижитал ёс зүй</div>
+            <p class="mt-1 text-white/85 text-sm">Сурагч бүр мэдээллийн аюулгүй байдал, интернэт дэх хариуцлагатай хандлагыг суралцана.</p>
+          </div>
+          <a href="#contact" class="shrink-0 bg-white text-brand-700 font-bold px-6 py-3 rounded-full hover:bg-warm-100 transition text-center">Дэлгэрэнгүй</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Advantages -->
+    <div class="mt-20">
+      <div class="text-center reveal">
+        <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-navy-800">Манай сургуулийн давуу талууд</h3>
+      </div>
+      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="reveal flex gap-4 p-5 rounded-2xl bg-warm-50 border border-warm-200"><span class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 grid place-items-center font-bold shrink-0">1</span><div><div class="font-bold text-navy-800">Орчин үеийн лаборатори</div><p class="text-sm text-warm-600 mt-1">Компьютер, физик, хими, биологийн тоноглогдсон кабинет.</p></div></div>
+        <div class="reveal flex gap-4 p-5 rounded-2xl bg-warm-50 border border-warm-200"><span class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 grid place-items-center font-bold shrink-0">2</span><div><div class="font-bold text-navy-800">Мэргэшсэн багш нар</div><p class="text-sm text-warm-600 mt-1">Тасралтгүй сургалтад хамрагддаг, туршлагатай багш.</p></div></div>
+        <div class="reveal flex gap-4 p-5 rounded-2xl bg-warm-50 border border-warm-200"><span class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 grid place-items-center font-bold shrink-0">3</span><div><div class="font-bold text-navy-800">Цахим сургалтын систем</div><p class="text-sm text-warm-600 mt-1">Дүн, ирц, даалгавар эцэг эхэд цаг алдалгүй харагдана.</p></div></div>
+        <div class="reveal flex gap-4 p-5 rounded-2xl bg-warm-50 border border-warm-200"><span class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 grid place-items-center font-bold shrink-0">4</span><div><div class="font-bold text-navy-800">Аюулгүй, дулаан орчин</div><p class="text-sm text-warm-600 mt-1">Камер, харуул хамгаалалт, сэтгэл зүйчийн үйлчилгээ.</p></div></div>
+        <div class="reveal flex gap-4 p-5 rounded-2xl bg-warm-50 border border-warm-200"><span class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 grid place-items-center font-bold shrink-0">5</span><div><div class="font-bold text-navy-800">Дугуйлан, клубын сүлжээ</div><p class="text-sm text-warm-600 mt-1">Спорт, урлаг, шинжлэх ухаан, сайн дурын 25+ дугуйлан.</p></div></div>
+        <div class="reveal flex gap-4 p-5 rounded-2xl bg-warm-50 border border-warm-200"><span class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 grid place-items-center font-bold shrink-0">6</span><div><div class="font-bold text-navy-800">Гадаад хэлний гүнзгийрүүлсэн сургалт</div><p class="text-sm text-warm-600 mt-1">Англи хэлний өдөр тутмын хэрэглээнд суурилсан хөтөлбөр.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news" class="py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-5 reveal">
+      <div>
+        <span class="text-brand-600 font-bold text-sm tracking-widest uppercase">Мэдээ мэдээлэл</span>
+        <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-navy-800">Сүүлийн үеийн мэдээ</h2>
+      </div>
+      <div id="newsTabs" class="flex flex-wrap gap-2 text-sm font-semibold">
+        <button data-f="all" class="tab px-4 py-2 rounded-full bg-navy-700 text-white">Бүгд</button>
+        <button data-f="news" class="tab px-4 py-2 rounded-full bg-white border border-warm-200 text-warm-700 hover:border-navy-300">Мэдээ</button>
+        <button data-f="notice" class="tab px-4 py-2 rounded-full bg-white border border-warm-200 text-warm-700 hover:border-navy-300">Зар</button>
+        <button data-f="event" class="tab px-4 py-2 rounded-full bg-white border border-warm-200 text-warm-700 hover:border-navy-300">Арга хэмжээ</button>
+      </div>
+    </div>
+
+    <div id="newsGrid" class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article data-cat="news" class="news-card reveal group bg-white rounded-3xl overflow-hidden shadow-card hover:-translate-y-1 transition lg:col-span-2 lg:row-span-1 flex flex-col sm:flex-row">
+        <div class="sm:w-2/5 h-44 sm:h-auto bg-gradient-to-br from-navy-600 to-navy-800 grid place-items-center relative">
+          <div class="absolute inset-0 grid-dots opacity-40"></div>
+          <svg class="relative w-20 h-20 text-white/90" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4zM17 6h3v1a3 3 0 01-3 3M7 6H4v1a3 3 0 003 3"/></svg>
+        </div>
+        <div class="p-6 sm:w-3/5">
+          <div class="flex items-center gap-3 text-xs"><span class="px-2.5 py-1 rounded-full bg-brand-50 text-brand-600 font-bold">Мэдээ</span><span class="text-warm-500">2026.11.20</span></div>
+          <h3 class="mt-3 font-display font-bold text-xl text-navy-800 group-hover:text-brand-600 transition">Математикийн олимпиадад манай сурагчид тэргүүлэв</h3>
+          <p class="mt-2 text-warm-600 text-sm leading-relaxed">Дүүргийн нэгдсэн олимпиадад манай сургуулийн 14 сурагч алт, мөнгө, хүрэл медаль хүртэж, багийн нийт дүнгээр тэргүүллээ.</p>
+          <a href="#" class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-navy-700">Үргэлжлүүлэн унших <span aria-hidden>→</span></a>
+        </div>
+      </article>
+
+      <article data-cat="notice" class="news-card reveal group bg-white rounded-3xl overflow-hidden shadow-card hover:-translate-y-1 transition">
+        <div class="h-40 bg-gradient-to-br from-brand-500 to-brand-700 grid place-items-center relative">
+          <div class="absolute inset-0 grid-dots opacity-30"></div>
+          <svg class="relative w-14 h-14 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 8v5M12 17h.01M10.3 3.9L2.4 18a2 2 0 001.7 3h15.800a2 2 0 001.700-3L13.700 3.900a2 2 0 00-3.400 0z"/></svg>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-3 text-xs"><span class="px-2.5 py-1 rounded-full bg-navy-50 text-navy-700 font-bold">Зар</span><span class="text-warm-500">2026.11.18</span></div>
+          <h3 class="mt-3 font-display font-bold text-lg text-navy-800 group-hover:text-brand-600 transition">1-р ангийн элсэлтийн бүртгэл эхэллээ</h3>
+          <p class="mt-2 text-warm-600 text-sm leading-relaxed">Бүртгэл онлайн болон сургууль дээр хоёр хэлбэрээр явагдана. Шаардлагатай баримтыг зарын хэсгээс үзнэ үү.</p>
+        </div>
+      </article>
+
+      <article data-cat="event" class="news-card reveal group bg-white rounded-3xl overflow-hidden shadow-card hover:-translate-y-1 transition">
+        <div class="h-40 bg-gradient-to-br from-navy-500 to-navy-700 grid place-items-center relative">
+          <div class="absolute inset-0 grid-dots opacity-30"></div>
+          <svg class="relative w-14 h-14 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M8 15h3"/></svg>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-3 text-xs"><span class="px-2.5 py-1 rounded-full bg-warm-100 text-warm-700 font-bold">Арга хэмжээ</span><span class="text-warm-500">2026.11.15</span></div>
+          <h3 class="mt-3 font-display font-bold text-lg text-navy-800 group-hover:text-brand-600 transition">Эцэг эхийн нээлттэй өдөрлөг боллоо</h3>
+          <p class="mt-2 text-warm-600 text-sm leading-relaxed">Эцэг эхчүүд анги танхимаар зочилж, багш нартай уулзан сурагчийн хөгжлийн талаар санал солилцлоо.</p>
+        </div>
+      </article>
+
+      <article data-cat="news" class="news-card reveal group bg-white rounded-3xl overflow-hidden shadow-card hover:-translate-y-1 transition">
+        <div class="h-40 bg-gradient-to-br from-warm-700 to-warm-900 grid place-items-center relative">
+          <div class="absolute inset-0 grid-dots opacity-20"></div>
+          <svg class="relative w-14 h-14 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 8V4M9 13h.01M15 13h.01M9 16h6"/></svg>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-3 text-xs"><span class="px-2.5 py-1 rounded-full bg-brand-50 text-brand-600 font-bold">Мэдээ</span><span class="text-warm-500">2026.11.10</span></div>
+          <h3 class="mt-3 font-display font-bold text-lg text-navy-800 group-hover:text-brand-600 transition">Робот техникийн шинэ лаборатори нээгдлээ</h3>
+          <p class="mt-2 text-warm-600 text-sm leading-relaxed">Arduino, мэдрэгч, 3D принтер бүхий лабораторид 5–9-р ангийн сурагчид хичээллэнэ.</p>
+        </div>
+      </article>
+
+      <article data-cat="event" class="news-card reveal group bg-white rounded-3xl overflow-hidden shadow-card hover:-translate-y-1 transition">
+        <div class="h-40 bg-gradient-to-br from-brand-600 to-navy-700 grid place-items-center relative">
+          <div class="absolute inset-0 grid-dots opacity-30"></div>
+          <svg class="relative w-14 h-14 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM21 16a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-3 text-xs"><span class="px-2.5 py-1 rounded-full bg-warm-100 text-warm-700 font-bold">Арга хэмжээ</span><span class="text-warm-500">2026.11.05</span></div>
+          <h3 class="mt-3 font-display font-bold text-lg text-navy-800 group-hover:text-brand-600 transition">Шинэ жилийн урлагийн наадам</h3>
+          <p class="mt-2 text-warm-600 text-sm leading-relaxed">Сурагчдын авьяас чадварыг илтгэсэн тоглолт 12-р сарын эхээр сургуулийн заалд болно.</p>
+        </div>
+      </article>
+
+      <article data-cat="notice" class="news-card reveal group bg-white rounded-3xl overflow-hidden shadow-card hover:-translate-y-1 transition">
+        <div class="h-40 bg-gradient-to-br from-navy-700 to-navy-900 grid place-items-center relative">
+          <div class="absolute inset-0 grid-dots opacity-30"></div>
+          <svg class="relative w-14 h-14 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-3 text-xs"><span class="px-2.5 py-1 rounded-full bg-navy-50 text-navy-700 font-bold">Зар</span><span class="text-warm-500">2026.11.01</span></div>
+          <h3 class="mt-3 font-display font-bold text-lg text-navy-800 group-hover:text-brand-600 transition">Өвлийн улирлын хичээлийн цагийн хуваарь</h3>
+          <p class="mt-2 text-warm-600 text-sm leading-relaxed">Өвлийн улиралд хичээл эхлэх, тарах цаг өөрчлөгдсөн тул эцэг эхчүүд танилцана уу.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="mt-10 text-center reveal">
+      <a href="#" class="inline-flex items-center gap-2 border-2 border-navy-700 text-navy-700 hover:bg-navy-700 hover:text-white font-bold px-7 py-3 rounded-full transition">Бүх мэдээг үзэх →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="text-brand-600 font-bold text-sm tracking-widest uppercase">Амжилт</span>
+      <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-navy-800">Сурагчдынхаа амжилтыг бахдан бялдуучилна</h2>
+    </div>
+    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="reveal text-center rounded-3xl bg-gradient-to-b from-navy-50 to-white border border-navy-100 p-7">
+        <div class="mx-auto w-16 h-16 rounded-full bg-navy-700 text-white grid place-items-center font-display font-extrabold text-xl">ТМО</div>
+        <div class="mt-4 font-bold text-navy-800">Математикийн олимпиад</div>
+        <div class="text-sm text-warm-600 mt-1">Улсын шагналт 12 сурагч</div>
+      </div>
+      <div class="reveal text-center rounded-3xl bg-gradient-to-b from-brand-50 to-white border border-brand-100 p-7">
+        <div class="mx-auto w-16 h-16 rounded-full bg-brand-600 text-white grid place-items-center font-display font-extrabold text-xl">IT</div>
+        <div class="mt-4 font-bold text-navy-800">Программчлалын тэмцээн</div>
+        <div class="text-sm text-warm-600 mt-1">Нийслэлийн шигшээд 8 баг</div>
+      </div>
+      <div class="reveal text-center rounded-3xl bg-gradient-to-b from-navy-50 to-white border border-navy-100 p-7">
+        <div class="mx-auto w-16 h-16 rounded-full bg-navy-700 text-white grid place-items-center font-display font-extrabold text-xl">EN</div>
+        <div class="mt-4 font-bold text-navy-800">Гадаад хэлний уралдаан</div>
+        <div class="text-sm text-warm-600 mt-1">Англи хэлний шилдэг 20 сурагч</div>
+      </div>
+      <div class="reveal text-center rounded-3xl bg-gradient-to-b from-brand-50 to-white border border-brand-100 p-7">
+        <div class="mx-auto w-16 h-16 rounded-full bg-brand-600 text-white grid place-items-center font-display font-extrabold text-xl">SP</div>
+        <div class="mt-4 font-bold text-navy-800">Спортын тэмцээн</div>
+        <div class="text-sm text-warm-600 mt-1">Волейбол, шатар, самбо</div>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="mt-14 grid md:grid-cols-2 gap-6">
+      <figure class="reveal bg-warm-50 border border-warm-200 rounded-3xl p-8">
+        <svg class="w-8 h-8 text-brand-500" fill="currentColor" viewBox="0 0 24 24"><path d="M7 7h4v4H9c0 2 1 3 2 3v3c-3 0-5-2-5-6V7zm9 0h4v4h-2c0 2 1 3 2 3v3c-3 0-5-2-5-6V7z"/></svg>
+        <blockquote class="mt-3 text-warm-700 leading-relaxed">Миний хүүхэд энд ирснээс хойш суралцах дуртай болсон. Багш нар хүүхэд бүрд анхаарч, эцэг эхтэй байнга холбоотой ажилладаг нь маш таатай.</blockquote>
+        <figcaption class="mt-4 text-sm font-semibold text-navy-800">Эцэг эх · 5-р ангийн сурагчийн ээж</figcaption>
+      </figure>
+      <figure class="reveal bg-warm-50 border border-warm-200 rounded-3xl p-8">
+        <svg class="w-8 h-8 text-brand-500" fill="currentColor" viewBox="0 0 24 24"><path d="M7 7h4v4H9c0 2 1 3 2 3v3c-3 0-5-2-5-6V7zm9 0h4v4h-2c0 2 1 3 2 3v3c-3 0-5-2-5-6V7z"/></svg>
+        <blockquote class="mt-3 text-warm-700 leading-relaxed">Программчлалын дугуйланд суралцаж байгаад анхны апп-аа бүтээсэн. Одоо их сургуульд мэдээлэл технологийн чиглэлээр элсэхээр төлөвлөж байна.</blockquote>
+        <figcaption class="mt-4 text-sm font-semibold text-navy-800">Сурагч · 11-р ангийн сурагч</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSION -->
+<section id="admission" class="py-20 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="text-brand-600 font-bold text-sm tracking-widest uppercase">Элсэлт</span>
+      <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-navy-800">Манай сургуульд хэрхэн элсэх вэ</h2>
+      <p class="mt-4 text-warm-600">Дөрвөн энгийн алхмаар бүртгэлээ дуусгана.</p>
+    </div>
+
+    <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-5 relative">
+      <div class="reveal bg-white rounded-3xl p-7 shadow-card">
+        <div class="font-display font-extrabold text-5xl text-navy-100">01</div>
+        <h3 class="mt-2 font-display font-bold text-lg text-navy-800">Онлайн бүртгэл</h3>
+        <p class="mt-2 text-sm text-warm-600 leading-relaxed">Эцэг эхийн мэдээлэл, хүүхдийн анкетыг цахимаар бөглөнө.</p>
+      </div>
+      <div class="reveal bg-white rounded-3xl p-7 shadow-card">
+        <div class="font-display font-extrabold text-5xl text-navy-100">02</div>
+        <h3 class="mt-2 font-display font-bold text-lg text-navy-800">Баримт бүрдүүлэх</h3>
+        <p class="mt-2 text-sm text-warm-600 leading-relaxed">Төрсний гэрчилгээ, эрүүл мэндийн үзлэг, оршин суугаа хаягийн лавлагаа.</p>
+      </div>
+      <div class="reveal bg-white rounded-3xl p-7 shadow-card">
+        <div class="font-display font-extrabold text-5xl text-navy-100">03</div>
+        <h3 class="mt-2 font-display font-bold text-lg text-navy-800">Ярилцлага</h3>
+        <p class="mt-2 text-sm text-warm-600 leading-relaxed">Хүүхэд, эцэг эхтэй найрсаг уур амьсгалтай танилцах уулзалт.</p>
+      </div>
+      <div class="reveal bg-white rounded-3xl p-7 shadow-card border-b-4 border-brand-600">
+        <div class="font-display font-extrabold text-5xl text-brand-100">04</div>
+        <h3 class="mt-2 font-display font-bold text-lg text-navy-800">Баталгаажуулалт</h3>
+        <p class="mt-2 text-sm text-warm-600 leading-relaxed">Шийдвэр гарсны дараа бүртгэл баталгаажиж, анги бүлэг тодорхой болно.</p>
+      </div>
+    </div>
+
+    <div class="mt-10 grid lg:grid-cols-5 gap-6">
+      <div class="lg:col-span-3 reveal bg-white rounded-3xl shadow-card p-7 sm:p-8">
+        <h3 class="font-display font-bold text-xl text-navy-800">Түгээмэл асуултууд</h3>
+        <div class="mt-4 divide-y divide-warm-200">
+          <details class="py-4" open>
+            <summary class="flex justify-between items-center font-semibold text-navy-800">1-р ангид хэдэн настай хүүхэд элсэх вэ?
+              <svg class="chev w-5 h-5 text-brand-600 transition" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="mt-3 text-sm text-warm-600 leading-relaxed">Тухайн жилдээ 6 нас хүрсэн хүүхэд элсэх эрхтэй. Дэлгэрэнгүйг элсэлтийн албанаас лавлана уу.</p>
+          </details>
+          <details class="py-4">
+            <summary class="flex justify-between items-center font-semibold text-navy-800">Шилжин ирэх боломжтой юу?
+              <svg class="chev w-5 h-5 text-brand-600 transition" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="mt-3 text-sm text-warm-600 leading-relaxed">Сул орон тоо байгаа ангид шилжин ирэх боломжтой. Өмнөх сургуулийн дүнгийн хуудас, шилжилтийн бичиг шаардлагатай.</p>
+          </details>
+          <details class="py-4">
+            <summary class="flex justify-between items-center font-semibold text-navy-800">Сургалтын төлбөр хэд вэ?
+              <svg class="chev w-5 h-5 text-brand-600 transition" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="mt-3 text-sm text-warm-600 leading-relaxed">Төрийн сургуулийн суурь сургалт үнэ төлбөргүй. Нэмэлт дугуйлан, хөтөлбөрийн мэдээллийг элсэлтийн албанаас авна уу.</p>
+          </details>
+          <details class="py-4">
+            <summary class="flex justify-between items-center font-semibold text-navy-800">Сургуулийн автобус үйлчилгээ байдаг уу?
+              <svg class="chev w-5 h-5 text-brand-600 transition" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+            <p class="mt-3 text-sm text-warm-600 leading-relaxed">Тодорхой чиглэлд сурагчийн тээвэр ажилладаг. Чиглэл, цагийн хуваарийг холбоо барьж лавлана уу.</p>
+          </details>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2 reveal rounded-3xl bg-gradient-to-br from-navy-700 to-navy-900 text-white p-7 sm:p-8 relative overflow-hidden">
+        <div class="absolute inset-0 grid-dots opacity-30"></div>
+        <div class="relative">
+          <h3 class="font-display font-bold text-xl">Шаардлагатай бичиг баримт</h3>
+          <ul class="mt-4 space-y-3 text-sm text-navy-100">
+            <li class="flex gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-brand-400 shrink-0"></span>Хүүхдийн төрсний гэрчилгээ (хуулбар)</li>
+            <li class="flex gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-brand-400 shrink-0"></span>Эцэг эхийн иргэний үнэмлэхний хуулбар</li>
+            <li class="flex gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-brand-400 shrink-0"></span>Эрүүл мэндийн үзлэгийн хуудас</li>
+            <li class="flex gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-brand-400 shrink-0"></span>3x4 хэмжээтэй 2 ширхэг зураг</li>
+            <li class="flex gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-brand-400 shrink-0"></span>Шилжин ирэгчид дүнгийн хуудас, шилжилтийн бичиг</li>
+          </ul>
+          <a href="#contact" class="mt-7 inline-flex bg-brand-600 hover:bg-brand-700 px-6 py-3 rounded-full font-bold transition">Бүртгэлийн хүсэлт илгээх</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS / CLUBS -->
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="text-brand-600 font-bold text-sm tracking-widest uppercase">Сургалтын хөтөлбөр</span>
+      <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-navy-800">Шатлал бүрт тохирсон хөтөлбөр</h2>
+    </div>
+    <div class="mt-12 grid md:grid-cols-3 gap-6">
+      <div class="reveal rounded-3xl p-8 bg-navy-50 border border-navy-100">
+        <div class="text-brand-600 font-bold text-sm">1–5-р анги</div>
+        <h3 class="mt-1 font-display font-bold text-2xl text-navy-800">Бага шатлал</h3>
+        <p class="mt-3 text-sm text-warm-600 leading-relaxed">Унших, бичих, тооцоолох суурь чадвар, сониуч байдал, багаар ажиллах дадал.</p>
+        <div class="mt-5 flex flex-wrap gap-2 text-xs font-semibold text-navy-700"><span class="bg-white px-3 py-1 rounded-full">Монгол хэл</span><span class="bg-white px-3 py-1 rounded-full">Математик</span><span class="bg-white px-3 py-1 rounded-full">Англи хэл</span><span class="bg-white px-3 py-1 rounded-full">Урлаг</span></div>
+      </div>
+      <div class="reveal rounded-3xl p-8 bg-brand-50 border border-brand-100">
+        <div class="text-brand-600 font-bold text-sm">6–9-р анги</div>
+        <h3 class="mt-1 font-display font-bold text-2xl text-navy-800">Суурь шатлал</h3>
+        <p class="mt-3 text-sm text-warm-600 leading-relaxed">Шинжлэх ухааны хичээлүүд, төслөөр суралцах арга, мэргэжил сонирхлын чиглэл тодорхойлох.</p>
+        <div class="mt-5 flex flex-wrap gap-2 text-xs font-semibold text-brand-700"><span class="bg-white px-3 py-1 rounded-full">Физик</span><span class="bg-white px-3 py-1 rounded-full">Хими</span><span class="bg-white px-3 py-1 rounded-full">Мэдээлэл зүй</span><span class="bg-white px-3 py-1 rounded-full">Нийгэм</span></div>
+      </div>
+      <div class="reveal rounded-3xl p-8 bg-warm-100 border border-warm-200">
+        <div class="text-brand-600 font-bold text-sm">10–12-р анги</div>
+        <h3 class="mt-1 font-display font-bold text-2xl text-navy-800">Бүрэн дунд шатлал</h3>
+        <p class="mt-3 text-sm text-warm-600 leading-relaxed">Элсэлтийн ЕБС-ын шалгалтад бэлтгэх, сонгон суралцах чиглэл, дипломын төсөл.</p>
+        <div class="mt-5 flex flex-wrap gap-2 text-xs font-semibold text-warm-700"><span class="bg-white px-3 py-1 rounded-full">Байгалийн ухаан</span><span class="bg-white px-3 py-1 rounded-full">Нийгмийн ухаан</span><span class="bg-white px-3 py-1 rounded-full">IT</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule" class="py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-10">
+    <div class="reveal">
+      <span class="text-brand-600 font-bold text-sm tracking-widest uppercase">Үйл ажиллагааны хуанли</span>
+      <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-navy-800">Ирэх арга хэмжээнүүд</h2>
+      <div class="mt-8 space-y-4">
+        <div class="flex gap-4 bg-white rounded-2xl shadow-card p-4 items-center">
+          <div class="w-16 shrink-0 text-center rounded-xl bg-navy-700 text-white py-2"><div class="font-display font-extrabold text-2xl leading-none">28</div><div class="text-[11px] mt-1 text-navy-200">11-р сар</div></div>
+          <div><div class="font-bold text-navy-800">Эцэг эхийн хурал</div><div class="text-sm text-warm-500">10:00 · Бүх анги</div></div>
+        </div>
+        <div class="flex gap-4 bg-white rounded-2xl shadow-card p-4 items-center">
+          <div class="w-16 shrink-0 text-center rounded-xl bg-brand-600 text-white py-2"><div class="font-display font-extrabold text-2xl leading-none">03</div><div class="text-[11px] mt-1 text-white/80">12-р сар</div></div>
+          <div><div class="font-bold text-navy-800">Шинжлэх ухааны өдөрлөг</div><div class="text-sm text-warm-500">13:30 · Спорт заал</div></div>
+        </div>
+        <div class="flex gap-4 bg-white rounded-2xl shadow-card p-4 items-center">
+          <div class="w-16 shrink-0 text-center rounded-xl bg-navy-700 text-white py-2"><div class="font-display font-extrabold text-2xl leading-none">12</div><div class="text-[11px] mt-1 text-navy-200">12-р сар</div></div>
+          <div><div class="font-bold text-navy-800">Шинэ жилийн урлагийн наадам</div><div class="text-sm text-warm-500">15:00 · Урлагийн заал</div></div>
+        </div>
+        <div class="flex gap-4 bg-white rounded-2xl shadow-card p-4 items-center">
+          <div class="w-16 shrink-0 text-center rounded-xl bg-brand-600 text-white py-2"><div class="font-display font-extrabold text-2xl leading-none">25</div><div class="text-[11px] mt-1 text-white/80">12-р сар</div></div>
+          <div><div class="font-bold text-navy-800">Хичээлийн эхний хагас жилийн төгсгөл</div><div class="text-sm text-warm-500">Өвлийн амралт эхэлнэ</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <span class="text-brand-600 font-bold text-sm tracking-widest uppercase">Дугуйлан, клуб</span>
+      <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-navy-800">Хичээлээс гадуурх хөгжил</h2>
+      <div class="mt-8 grid grid-cols-2 gap-4">
+        <div class="rounded-2xl bg-white shadow-card p-5"><div class="text-2xl">💻</div><div class="mt-2 font-bold text-navy-800">Программчлал</div><div class="text-xs text-warm-500 mt-1">Даваа, Лхагва</div></div>
+        <div class="rounded-2xl bg-white shadow-card p-5"><div class="text-2xl">🎨</div><div class="mt-2 font-bold text-navy-800">Дүрслэх урлаг</div><div class="text-xs text-warm-500 mt-1">Мягмар, Пүрэв</div></div>
+        <div class="rounded-2xl bg-white shadow-card p-5"><div class="text-2xl">🏐</div><div class="mt-2 font-bold text-navy-800">Волейбол, шатар</div><div class="text-xs text-warm-500 mt-1">Өдөр бүр</div></div>
+        <div class="rounded-2xl bg-white shadow-card p-5"><div class="text-2xl">🎵</div><div class="mt-2 font-bold text-navy-800">Хөгжим, бүжиг</div><div class="text-xs text-warm-500 mt-1">Лхагва, Баасан</div></div>
+        <div class="rounded-2xl bg-white shadow-card p-5"><div class="text-2xl">🔬</div><div class="mt-2 font-bold text-navy-800">Шинжлэх ухаан</div><div class="text-xs text-warm-500 mt-1">Мягмар</div></div>
+        <div class="rounded-2xl bg-white shadow-card p-5"><div class="text-2xl">🗣️</div><div class="mt-2 font-bold text-navy-800">Англи хэлний клуб</div><div class="text-xs text-warm-500 mt-1">Пүрэв</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-20 bg-gradient-to-br from-navy-800 to-navy-900 relative overflow-hidden">
+  <div class="absolute inset-0 grid-dots opacity-30"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-10 items-start">
+    <div class="reveal text-white">
+      <span class="text-brand-400 font-bold text-sm tracking-widest uppercase">Холбоо барих</span>
+      <h2 class="mt-3 font-display font-extrabold text-3xl sm:text-4xl">Бидэнтэй холбогдоорой</h2>
+      <p class="mt-4 text-navy-100 max-w-md leading-relaxed">Асуулт, санал хүсэлтээ илгээнэ үү. Ажлын өдрүүдэд 24 цагийн дотор хариу өгнө.</p>
+      <ul class="mt-8 space-y-5">
+        <li class="flex gap-4"><span class="w-11 h-11 rounded-xl bg-white/10 grid place-items-center shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><div class="font-semibold">Хаяг</div><div class="text-navy-200 text-sm">Улаанбаатар хот, Сүхбаатар дүүрэг, 1-р хороо</div></div></li>
+        <li class="flex gap-4"><span class="w-11 h-11 rounded-xl bg-white/10 grid place-items-center shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h2.3a1 1 0 011 .76l.9 3.6a1 1 0 01-.3 1L7.6 9.6a12 12 0 006.8 6.8l1.2-1.3a1 1 0 011-.3l3.6.9a1 1 0 01.8 1V19a2 2 0 01-2 2A16 16 0 013 5z"/></svg></span><div><div class="font-semibold">Утас</div><div class="text-navy-200 text-sm">11-000000 · 9900-0000</div></div></li>
+        <li class="flex gap-4"><span class="w-11 h-11 rounded-xl bg-white/10 grid place-items-center shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><div><div class="font-semibold">И-мэйл</div><div class="text-navy-200 text-sm">info@school.edu.mn</div></div></li>
+        <li class="flex gap-4"><span class="w-11 h-11 rounded-xl bg-white/10 grid place-items-center shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><div class="font-semibold">Ажиллах цаг</div><div class="text-navy-200 text-sm">Даваа–Баасан 08:00 – 18:00</div></div></li>
+      </ul>
+    </div>
+
+    <form id="contactForm" class="reveal bg-white rounded-3xl shadow-soft p-7 sm:p-8 grid gap-4" novalidate>
+      <h3 class="font-display font-bold text-xl text-navy-800">Санал хүсэлт илгээх</h3>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block"><span class="text-sm font-semibold text-warm-700">Нэр</span>
+          <input required name="name" type="text" class="mt-1 w-full rounded-xl border border-warm-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-navy-400 focus:border-navy-400" placeholder="Таны нэр"></label>
+        <label class="block"><span class="text-sm font-semibold text-warm-700">Утас</span>
+          <input required name="phone" type="tel" class="mt-1 w-full rounded-xl border border-warm-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-navy-400 focus:border-navy-400" placeholder="9900 0000"></label>
+      </div>
+      <label class="block"><span class="text-sm font-semibold text-warm-700">Сэдэв</span>
+        <select name="topic" class="mt-1 w-full rounded-xl border border-warm-200 px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-navy-400">
+          <option>Элсэлт</option><option>Шилжин ирэх</option><option>Сургалтын хөтөлбөр</option><option>Бусад</option>
+        </select></label>
+      <label class="block"><span class="text-sm font-semibold text-warm-700">Зурвас</span>
+        <textarea required name="msg" rows="4" class="mt-1 w-full rounded-xl border border-warm-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-navy-400 focus:border-navy-400" placeholder="Асуулт, хүсэлтээ бичнэ үү"></textarea></label>
+      <button class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-7 py-3.5 rounded-full shadow-soft transition">Илгээх</button>
+      <p id="formMsg" class="hidden text-sm font-semibold text-navy-700 bg-navy-50 rounded-xl px-4 py-3"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-warm-900 text-warm-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-3">
+        <span class="grid place-items-center w-10 h-10 rounded-xl bg-navy-700 text-white"><svg viewBox="0 0 32 32" class="w-6 h-6" fill="none"><path d="M16 4l12 6-12 6L4 10 16 4z" fill="#fff"/><path d="M9 14v6c0 2 3.5 4 7 4s7-2 7-4v-6l-7 3.5L9 14z" fill="#fff" opacity=".85"/></svg></span>
+        <span class="font-display font-extrabold text-white">Ерөнхий боловсролын сургууль</span>
+      </div>
+      <p class="mt-4 text-sm leading-relaxed text-warm-400">Мэдлэг, ёс зүй, технологийг хослуулсан орчинд ирээдүйн иргэдийг хамтдаа бэлтгэнэ.</p>
+    </div>
+    <div>
+      <div class="font-bold text-white mb-4">Цэс</div>
+      <ul class="space-y-2 text-sm">
+        <li><a class="hover:text-white" href="#about">Танилцуулга</a></li>
+        <li><a class="hover:text-white" href="#mission">Бодлого зорилго</a></li>
+        <li><a class="hover:text-white" href="#it">IT сургалт</a></li>
+        <li><a class="hover:text-white" href="#news">Мэдээ</a></li>
+        <li><a class="hover:text-white" href="#admission">Элсэлт</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="font-bold text-white mb-4">Холбоос</div>
+      <ul class="space-y-2 text-sm">
+        <li><a class="hover:text-white" href="#">Цахим сургалт</a></li>
+        <li><a class="hover:text-white" href="#">Эцэг эхийн булан</a></li>
+        <li><a class="hover:text-white" href="#">Сургуулийн дүрэм</a></li>
+        <li><a class="hover:text-white" href="#">Ажлын байр</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="font-bold text-white mb-4">Сошиал</div>
+      <div class="flex gap-3">
+        <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full bg-white/10 hover:bg-brand-600 grid place-items-center transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5 21v-7.5H16l.5-3h-3V8.600c0-.9.3-1.600 1.600-1.600H16.600V4.300C16.300 4.300 15.400 4.200 14.400 4.200c-2.300 0-3.900 1.400-3.900 4v2.300H8v3h2.500V21h3z"/></svg></a>
+        <a href="#" aria-label="YouTube" class="w-10 h-10 rounded-full bg-white/10 hover:bg-brand-600 grid place-items-center transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M21.600 7.200a2.500 2.500 0 00-1.800-1.800C18.200 5 12 5 12 5s-6.200 0-7.800.4A2.500 2.500 0 002.400 7.200C2 8.800 2 12 2 12s0 3.200.4 4.800a2.500 2.500 0 001.800 1.800C5.800 19 12 19 12 19s6.200 0 7.800-.4a2.500 2.500 0 001.800-1.800C22 15.200 22 12 22 12s0-3.200-.4-4.800zM10 15V9l5.200 3L10 15z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-5 text-xs text-warm-500 flex flex-col sm:flex-row justify-between gap-2">
+      <span>© 2026 Ерөнхий боловсролын сургууль. Бүх эрх хуулиар хамгаалагдсан.</span>
+      <span>Хэрэглэх нөхцөл · Нууцлалын бодлого</span>
+    </div>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="Дээш" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-brand-600 hover:bg-brand-700 text-white shadow-soft grid place-items-center opacity-0 pointer-events-none transition">
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg>
+</button>
+
+<script>
+(function () {
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+  // Slider
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const dotsWrap = document.getElementById('dots');
+  const progress = document.getElementById('progress');
+  const INTERVAL = 6500;
+  let idx = 0, timer = null, startTs = 0, raf = null;
+
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.setAttribute('aria-label', 'Слайд ' + (i + 1));
+    b.className = 'h-2.5 rounded-full bg-white/40 transition-all';
+    b.style.width = '10px';
+    b.addEventListener('click', () => { go(i); restart(); });
+    dotsWrap.appendChild(b);
+  });
+
+  function paintDots() {
+    Array.from(dotsWrap.children).forEach((d, i) => {
+      d.style.width = i === idx ? '32px' : '10px';
+      d.style.background = i === idx ? '#fff' : 'rgba(255,255,255,.4)';
+    });
+  }
+  function go(n) {
+    slides[idx].classList.remove('active');
+    idx = (n + slides.length) % slides.length;
+    slides[idx].classList.add('active');
+    paintDots();
+  }
+  function tick(ts) {
+    if (!startTs) startTs = ts;
+    const p = Math.min((ts - startTs) / INTERVAL, 1);
+    progress.style.width = (p * 100) + '%';
+    if (p >= 1) { go(idx + 1); startTs = ts; }
+    raf = requestAnimationFrame(tick);
+  }
+  function restart() { cancelAnimationFrame(raf); startTs = 0; progress.style.width = '0'; raf = requestAnimationFrame(tick); }
+  document.getElementById('next').addEventListener('click', () => { go(idx + 1); restart(); });
+  document.getElementById('prev').addEventListener('click', () => { go(idx - 1); restart(); });
+  const slider = document.getElementById('slider');
+  slider.addEventListener('mouseenter', () => cancelAnimationFrame(raf));
+  slider.addEventListener('mouseleave', restart);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { go(idx + 1); restart(); }
+    if (e.key === 'ArrowLeft') { go(idx - 1); restart(); }
+  });
+  let sx = 0;
+  slider.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  slider.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 50) { go(idx + (dx < 0 ? 1 : -1)); restart(); }
+  });
+  paintDots();
+  restart();
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('show'); io.unobserve(en.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Counters
+  const co = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const el = en.target, target = +el.dataset.count, dur = 1400, t0 = performance.now();
+      (function step(t) {
+        const p = Math.min((t - t0) / dur, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))).toLocaleString('en-US');
+        if (p < 1) requestAnimationFrame(step);
+      })(t0);
+      co.unobserve(el);
+    });
+  }, { threshold: .5 });
+  document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
+
+  // News filter
+  const tabs = document.querySelectorAll('#newsTabs .tab');
+  const cards = document.querySelectorAll('.news-card');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => {
+      x.classList.remove('bg-navy-700', 'text-white');
+      x.classList.add('bg-white', 'border', 'border-warm-200', 'text-warm-700');
+    });
+    t.classList.add('bg-navy-700', 'text-white');
+    t.classList.remove('bg-white', 'border', 'border-warm-200', 'text-warm-700');
+    const f = t.dataset.f;
+    cards.forEach(c => { c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none'; });
+  }));
+
+  // Active nav link on scroll
+  const links = document.querySelectorAll('header nav .nav-link');
+  const secs = Array.from(links).map(l => document.querySelector(l.getAttribute('href')));
+  const header = document.getElementById('header');
+  const toTop = document.getElementById('toTop');
+  function onScroll() {
+    const y = window.scrollY + 120;
+    secs.forEach((s, i) => { if (s) links[i].classList.toggle('active', y >= s.offsetTop && y < s.offsetTop + s.offsetHeight); });
+    header.classList.toggle('shadow-soft', window.scrollY > 10);
+    const show = window.scrollY > 600;
+    toTop.style.opacity = show ? '1' : '0';
+    toTop.style.pointerEvents = show ? 'auto' : 'none';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Contact form (demo)
+  const form = document.getElementById('contactForm');
+  const msg = document.getElementById('formMsg');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const ok = form.checkValidity();
+    msg.classList.remove('hidden');
+    if (!ok) { msg.textContent = 'Бүх талбарыг бүрэн бөглөнө үү.'; return; }
+    msg.textContent = 'Баярлалаа! Таны хүсэлтийг хүлээн авлаа. Тун удахгүй холбогдоно.';
+    form.reset();
+  });
+})();
+</script>
+</body>
+</html>
